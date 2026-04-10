@@ -6,8 +6,9 @@ Ami is a full-stack AI-powered family healthcare assistant built to provide pers
 - **Live Widgets**: Real-time integrations with WeatherAPI and NewsAPI to give context to daily conversations.
 - **Persistent Conversation Memory**: Learns frequent topics and tracks the history of individual members automatically.
 - **Voice Support**: Integrated speech-to-text and text-to-speech for accessible communication.
+- 
 ## 🏗️ System Architecture
-```mermaid
+```
 graph TD
     subgraph Frontend [React + Vite Frontend]
         UI[User Interface]
@@ -42,7 +43,7 @@ graph TD
 
 
 ## 🔄 Face Recognition Workflow
-```mermaid
+```
 sequenceDiagram
     participant User
     participant Frontend

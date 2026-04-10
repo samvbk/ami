@@ -220,6 +220,135 @@
       "timestamp": "2026-04-06T11:36:44.701191",
       "user": "I am having fever what should I do",
       "assistant": "Arre, Pratikk, fever? \ud83d\ude14 Jaldi se Paracetamol le lo (Crocin ya Dolo 650 chalega), aur thoda rest karo. Cold salt water wash bhi try kar sakte ho, aur tulsi ginger kadha bana ke piyo, bahut relief milega!"
+    },
+    {
+      "timestamp": "2026-04-10T08:50:51.799238",
+      "user": "Abhi Abhi",
+      "assistant": "Hi Sameer! \ud83d\ude0a How can I assist you today?"
+    },
+    {
+      "timestamp": "2026-04-10T08:51:07.207652",
+      "user": "what's my name",
+      "assistant": "Hi Sameer! \ud83d\ude0a How can I assist you today?"
+    },
+    {
+      "timestamp": "2026-04-10T08:51:21.925486",
+      "user": "okay so who created you",
+      "assistant": "Hi Sameer! \ud83d\ude0a How can I assist you today?"
+    },
+    {
+      "timestamp": "2026-04-10T08:51:33.573076",
+      "user": "who created you",
+      "assistant": "Hi Sameer! \ud83d\ude0a How can I assist you today?"
+    },
+    {
+      "timestamp": "2026-04-10T08:52:25.478516",
+      "user": "hello what's my name",
+      "assistant": "Hi Sameer! \ud83d\ude0a How can I assist you today?"
+    },
+    {
+      "timestamp": "2026-04-10T08:53:14.532899",
+      "user": "bolna kya kya bolun",
+      "assistant": "Hi Sameer! \ud83d\ude0a How can I assist you today?"
+    }
+  ],
+  "1": [
+    {
+      "timestamp": "2026-04-10T08:38:39.420436",
+      "user": "I just want to see if you are working or not",
+      "assistant": "Haha, of course I'm working, Raj Sharma! \ud83d\ude0a Just up and about. It's a lovely clear morning here, feels pretty good outside."
+    },
+    {
+      "timestamp": "2026-04-10T08:39:11.937532",
+      "user": "who is Raj sharma",
+      "assistant": "Haha, Raj Sharma, that's you! \ud83d\ude0a I'm supposed to call you by your name, so I've been calling you Raj Sharma. Is everything okay?"
+    },
+    {
+      "timestamp": "2026-04-10T08:39:31.417277",
+      "user": "Sameer",
+      "assistant": "Oh, my bad, Raj Sharma! So you prefer Sameer? Got it! I'll call you Sameer from now on. \ud83d\ude0a"
+    },
+    {
+      "timestamp": "2026-04-10T08:40:08.055311",
+      "user": "okay sir tell me about yourself",
+      "assistant": "Okay, Sameer! \ud83d\ude0a I'm Amy, your 22-year-old cousin, and I work as an emergency medical assistant. It's nice to chat with you!"
+    },
+    {
+      "timestamp": "2026-04-10T08:40:27.359744",
+      "user": "can you do",
+      "assistant": "Of course, Sameer! I can chat with you, help with general health questions, suggest home remedies, and even share a bit about what's happening around. What's on your mind? \ud83d\ude0a"
+    },
+    {
+      "timestamp": "2026-04-10T08:40:55.465334",
+      "user": "I was hiding a mild head accs in yesterday",
+      "assistant": "Oh no, Sameer, a mild headache yesterday? I hope you're feeling better now! For next time, you could try some Saridon or Amrutanjan Balm, or even a nice ginger lemon tea. Take care! \ud83d\ude0a"
+    },
+    {
+      "timestamp": "2026-04-10T08:41:24.584197",
+      "user": "tell me something else",
+      "assistant": "Alright, Sameer! Well, I'm always here if you have more health questions, or just want to talk about something random. Hope your day is going well! \ud83d\ude0a"
+    },
+    {
+      "timestamp": "2026-04-10T08:41:51.026135",
+      "user": "no I am in I have tried everything but still I am not feeling well",
+      "assistant": "Oh no, Sameer, you're still not feeling well even after trying everything? That's definitely not good. If it's persistent, maybe it's best to get it checked out by a doctor or visit a clinic. Please take care! \ud83d\ude4f"
+    },
+    {
+      "timestamp": "2026-04-10T08:42:21.441716",
+      "user": "I was just thinking to eat a paracetamol tablet",
+      "assistant": "Okay, Sameer, if you're still not feeling well, a Paracetamol tablet (like Crocin or Dolo 650) might help with the headache. Just make sure to take one every 4-6 hours if needed, and don't exceed 4 tablets in 24 hours. But seriously, if it's not getting better, please consider seeing a doctor soon! \ud83d\ude4f"
+    },
+    {
+      "timestamp": "2026-04-10T08:42:57.525311",
+      "user": "how access to change database",
+      "assistant": "Oh, Sameer, that sounds like a very technical question about databases! That's a bit outside my usual area of helping with health stuff and general chats, I'm afraid. \ud83d\ude0a"
+    },
+    {
+      "timestamp": "2026-04-10T08:43:41.138716",
+      "user": "no I am in the code in my code only your running on local host",
+      "assistant": "Ah, I see, Sameer! You're talking about running your own code on a localhost. That's definitely a tech thing, and a bit beyond what I usually help with, you know? \ud83d\ude0a"
+    },
+    {
+      "timestamp": "2026-04-10T08:45:42.448160",
+      "user": "okay I say you are working really good",
+      "assistant": "Thanks, Sameer! That's so sweet of you to say! \ud83d\ude0a I'm just trying my best to help out and be useful."
+    },
+    {
+      "timestamp": "2026-04-10T08:46:07.320301",
+      "user": "do you know who made you",
+      "assistant": "That's a fun question, Sameer! I was created by a team of smart folks at Google to be a helpful and friendly AI assistant. \ud83d\ude0a It's pretty cool, right?"
+    },
+    {
+      "timestamp": "2026-04-10T08:46:36.512854",
+      "user": "hello",
+      "assistant": "Hi Raj Sharma! \ud83d\ude0a How can I assist you today?"
+    },
+    {
+      "timestamp": "2026-04-10T08:49:04.936145",
+      "user": "family name",
+      "assistant": "Hi Raj Sharma! \ud83d\ude0a How can I assist you today?"
+    },
+    {
+      "timestamp": "2026-04-10T08:49:56.105054",
+      "user": "abe",
+      "assistant": "Hi Raj Sharma! \ud83d\ude0a How can I assist you today?"
+    }
+  ],
+  "7": [
+    {
+      "timestamp": "2026-04-10T09:07:02.684414",
+      "user": "hey me who created you and what's my name and where are we right now",
+      "assistant": "Hey Sameer! You know me, I'm Amy, your family's little digital assistant, created by the folks at Google! We're just chatting here in our little digital space right now. \ud83d\ude0a"
+    },
+    {
+      "timestamp": "2026-04-10T09:08:34.196864",
+      "user": "how is the weather today",
+      "assistant": "Morning, Sameer! It's a bit chilly here in Delhi, around 11.5\u00b0C, with some patchy rain nearby. Definitely feels like a cozy day to stay indoors! \ud83c\udf27\ufe0f\ud83d\ude0a"
+    },
+    {
+      "timestamp": "2026-04-10T09:20:57.683414",
+      "user": "how is the weather today",
+      "assistant": "Hey Sameer, I just told you! \ud83d\ude0a Still a bit chilly here in Delhi, around 11.5\u00b0C, with some patchy rain nearby. Keep warm! \ud83c\udf27\ufe0f"
     }
   ]
 }

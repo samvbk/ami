@@ -353,48 +353,48 @@ def recognize_face_from_image(image_bytes):
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 weather_cache = {}
 
-def get_weather_info(city="Delhi"):
-    """Get weather information with caching"""
+def get_weather_info(city="Delhi", lat=None, lon=None):
+    """Get weather information with caching. Supports city name or coordinates."""
     if not WEATHER_API_KEY:
         logger.warning("WEATHER_API_KEY not set")
         return None
 
+    # Use coordinates if provided, otherwise fall back to city name
+    if lat is not None and lon is not None:
+        query = f"{lat},{lon}"       # WeatherAPI accepts "lat,lon" directly
+        cache_key = f"{lat:.2f},{lon:.2f}"
+    else:
+        query = city
+        cache_key = city.lower()
+
     # Check cache (5 minute TTL)
-    cache_key = city.lower()
     if cache_key in weather_cache:
         cached_time, cached_data = weather_cache[cache_key]
-        if time.time() - cached_time < 300:  # 5 minutes
+        if time.time() - cached_time < 300:
             return cached_data
 
     try:
-        logger.info(f"Fetching weather for {city}...")
+        logger.info(f"Fetching weather for {query}...")
 
         response = requests.get(
             "http://api.weatherapi.com/v1/current.json",
-            params={
-                "key": WEATHER_API_KEY,
-                "q": city,
-                "aqi": "no"
-            },
+            params={"key": WEATHER_API_KEY, "q": query, "aqi": "no"},
             timeout=10
         )
-
         response.raise_for_status()
         data = response.json()
 
         weather_info = {
             "temperature": data["current"]["temp_c"],
             "description": data["current"]["condition"]["text"],
-            "city": data["location"]["name"],
+            "city": data["location"]["name"],       # ← will return actual city now
             "humidity": data["current"]["humidity"],
             "wind_speed": data["current"]["wind_kph"],
             "feels_like": data["current"]["feelslike_c"]
         }
 
-        # Update cache
         weather_cache[cache_key] = (time.time(), weather_info)
-
-        logger.info(f"Weather fetched: {weather_info['temperature']}°C")
+        logger.info(f"Weather fetched for {weather_info['city']}: {weather_info['temperature']}°C")
         return weather_info
 
     except Exception as e:
@@ -722,6 +722,8 @@ async def chat(
     member_id: int = Form(...),
     message: str = Form(...),
     use_voice: str = Form("false"),
+    lat: float = Form(None),
+    lon: float = Form(None),
 ):
     """Chat endpoint"""
     try:
@@ -772,7 +774,7 @@ async def chat(
         # Get weather if relevant
         weather_info = None
         if any(word in message.lower() for word in ['weather', 'temperature', 'hot', 'cold', 'rain']):
-            weather_info = get_weather_info()
+            weather_info = get_weather_info(lat=lat, lon=lon)
         
         # Get news if requested
         news_articles = None
@@ -829,20 +831,22 @@ async def chat(
         }, status_code=500)
 
 @app.get("/weather")
-async def get_weather_endpoint(city: str = None):
-    """Weather endpoint"""
+async def get_weather_endpoint(lat: float = None, lon: float = None, city: str = None):
+    """Weather endpoint — accepts lat/lon coords OR city name"""
     try:
-        weather = get_weather_info(city or "Delhi")
-        
+        if lat is not None and lon is not None:
+            weather = get_weather_info(lat=lat, lon=lon)   # ← use coordinates
+        else:
+            weather = get_weather_info(city=city or "Delhi")  # ← fallback
+
         if weather:
             return JSONResponse({"success": True, "weather": weather})
         else:
             return JSONResponse({"success": False, "message": "Weather fetch failed"})
-            
+
     except Exception as e:
         logger.error(f"Weather error: {e}")
         return JSONResponse({"success": False, "error": str(e)})
-
 @app.get("/news")
 async def get_news_endpoint():
     """News endpoint"""
@@ -925,4 +929,4 @@ if __name__ == "__main__":
     print("🌐 Server starting on http://localhost:8000")
     print("📝 API Docs: http://localhost:8000/docs")
     print("=" * 50)
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)

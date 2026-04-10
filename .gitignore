@@ -3,6 +3,7 @@
 venv/
 env/
 ENV/
+backend/venv/
 
 # Python
 __pycache__/
@@ -41,6 +42,22 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 
-# Audio/Face cache files (optional - if you want to exclude these)
-# audio/
-# faces/
+# Application runtime data
+conversation_memory.json
+
+# Media uploads and cache
+#backend/audio/
+
+backend/faces/
+
+# Logs
+*.log
+
+# Database dumps
+*dump.sql
+*backup.sql
+
+
+# Temporary files
+*.tmp
+*.temp

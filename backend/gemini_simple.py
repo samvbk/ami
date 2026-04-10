@@ -5,6 +5,8 @@
 # WITH MEMORY + REAL WEATHER + REAL NEWS + FREE TIER MODELS
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 from typing import Optional, Dict, Any, List
 import google.generativeai as genai
 
@@ -14,11 +16,10 @@ print("🤖 Initializing Gemini free-tier models...")
 # API KEY
 # --------------------------------------------------
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
 if not GEMINI_API_KEY:
     raise RuntimeError(
         "❌ GEMINI_API_KEY not found. "
-        "Run: export GEMINI_API_KEY='YOUR_API_KEY'"
+        "Run: export GEMINI_API_KEY='AIzaSyBtrctAGiq5f7XMCad7n1VpUZUv-25IoAQ'"
     )
 
 genai.configure(api_key=GEMINI_API_KEY)

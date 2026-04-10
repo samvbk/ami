@@ -16,7 +16,7 @@ export default function AlwaysOnAssistant({ member, onLogout }) {
   const [transcript, setTranscript] = useState('');
   const [volume, setVolume] = useState(0);
   const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
-
+  const [userCoords, setUserCoords] = useState({ lat: null, lon: null });
   const isProcessingRef = useRef(false);
   const hasInitializedRef = useRef(false);
 
@@ -49,12 +49,24 @@ export default function AlwaysOnAssistant({ member, onLogout }) {
         async (position) => {
           try {
             const { latitude, longitude } = position.coords;
+
+            console.log(`Your coords: ${latitude}, ${longitude}`); // ← debug line
+
             const response = await fetch(
+              // Use backtick template literal carefully — make sure lat/lon are numbers
               `http://localhost:8000/weather?lat=${latitude}&lon=${longitude}`
             );
+
+            if (!response.ok) {
+              throw new Error(`HTTP error: ${response.status}`);
+            }
+
             const data = await response.json();
             if (data.success) {
               setWeather(data.weather);
+              setUserCoords({ lat: latitude, lon: longitude }); // ← add this line
+            } else {
+              console.error('API returned failure:', data); // ← see what backend says
             }
           } catch (error) {
             console.error('Weather fetch failed:', error);
@@ -62,13 +74,13 @@ export default function AlwaysOnAssistant({ member, onLogout }) {
         },
         (error) => {
           console.error('Location permission denied:', error);
-        }
+        },
+        { enableHighAccuracy: true, timeout: 10000 } // ← add geolocation options
       );
     };
 
     fetchWeatherWithLocation();
   }, []);
-
   // ─────────────────────────────────────────────────────────────
   // ✅ STEP 3: Morning greeting builder
   // ─────────────────────────────────────────────────────────────
@@ -77,9 +89,9 @@ export default function AlwaysOnAssistant({ member, onLogout }) {
 
     const hour = new Date().getHours();
     let timeGreeting = '';
-    if (hour < 12)       timeGreeting = 'morning';
-    else if (hour < 17)  timeGreeting = 'afternoon';
-    else                 timeGreeting = 'evening';
+    if (hour < 12) timeGreeting = 'morning';
+    else if (hour < 17) timeGreeting = 'afternoon';
+    else timeGreeting = 'evening';
 
     let greeting = `Good ${timeGreeting}, ${member.name}! `;
 
@@ -168,13 +180,12 @@ export default function AlwaysOnAssistant({ member, onLogout }) {
       const lowerText = text.toLowerCase();
 
       if (lowerText.includes('news')) { handleNewsRequest(); return; }
-      if (lowerText.includes('first')  || lowerText.includes('1st')) { fetchNewsDetail(0); return; }
+      if (lowerText.includes('first') || lowerText.includes('1st')) { fetchNewsDetail(0); return; }
       if (lowerText.includes('second') || lowerText.includes('2nd')) { fetchNewsDetail(1); return; }
-      if (lowerText.includes('third')  || lowerText.includes('3rd')) { fetchNewsDetail(2); return; }
+      if (lowerText.includes('third') || lowerText.includes('3rd')) { fetchNewsDetail(2); return; }
 
       console.log(`💬 Sending to backend: "${text}"`);
-      const response = await sendMessage(member.id, text, audioEnabled);
-
+      const response = await sendMessage(member.id, text, audioEnabled, userCoords.lat, userCoords.lon);
       if (response.duplicate) {
         console.log('⏭️ Duplicate message ignored');
         isProcessingRef.current = false;
@@ -290,8 +301,8 @@ export default function AlwaysOnAssistant({ member, onLogout }) {
   };
 
   const getStatusMessage = () => {
-    if (isSpeaking)                    return 'A.M.I. is talking...';
-    if (isListening)                   return 'Listening...';
+    if (isSpeaking) return 'A.M.I. is talking...';
+    if (isListening) return 'Listening...';
     if (assistantState === 'thinking') return 'Thinking...';
     return 'Ready';
   };

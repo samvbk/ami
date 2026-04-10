@@ -42,25 +42,29 @@ const dataURLtoBlob = (dataurl) => {
 export const sendMessage = async (memberId, message, useAudio = true) => {
   try {
     console.log('💬 Sending message:', message.substring(0, 50));
-    
+
     const formData = new FormData();
     formData.append('member_id', memberId.toString());
     formData.append('message', message);
     formData.append('use_voice', useAudio.toString());
-    
+    if (lat && lon) {
+      formData.append('lat', lat);
+      formData.append('lon', lon);
+    }
+
     const response = await api.post('/chat', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    
+
     console.log('✅ Response received:', response.data);
-    
+
     return response.data;
-    
+
   } catch (error) {
     console.error('❌ API Error:', error);
-    
+
     if (error.code === 'ERR_NETWORK') {
       return {
         success: false,
@@ -68,7 +72,7 @@ export const sendMessage = async (memberId, message, useAudio = true) => {
         emotion: "concerned"
       };
     }
-    
+
     if (error.response) {
       console.error('Backend error:', error.response.status, error.response.data);
       return {
@@ -77,7 +81,7 @@ export const sendMessage = async (memberId, message, useAudio = true) => {
         emotion: "concerned"
       };
     }
-    
+
     return {
       success: false,
       response: "Oops! Something went wrong. Please try again.",
@@ -93,18 +97,18 @@ export const recognizeFace = async (imageBase64) => {
     if (!blob) {
       throw new Error('Failed to convert image');
     }
-    
+
     const formData = new FormData();
     formData.append('image', blob, 'face.jpg');
-    
+
     const response = await api.post('/recognize', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    
+
     console.log('Face recognition response:', response.data);
-    
+
     if (response.data.success && response.data.recognized) {
       return {
         success: true,
@@ -119,7 +123,7 @@ export const recognizeFace = async (imageBase64) => {
         message: response.data.message || 'Face not recognized. Please register.'
       };
     }
-    
+
   } catch (error) {
     console.error('Face recognition error:', error);
     return {
@@ -132,12 +136,12 @@ export const recognizeFace = async (imageBase64) => {
 export const registerMember = async (memberData, imageBase64) => {
   try {
     console.log('📝 Registering:', memberData.member_name);
-    
+
     const blob = dataURLtoBlob(imageBase64);
     if (!blob) {
       throw new Error('Failed to convert image');
     }
-    
+
     const formData = new FormData();
     formData.append('image', blob, 'face.jpg');
     formData.append('family_name', memberData.family_name || '');
@@ -146,15 +150,15 @@ export const registerMember = async (memberData, imageBase64) => {
     formData.append('age', memberData.age || '');
     formData.append('medical_history', memberData.medical_history || '');
     formData.append('emergency_contact', memberData.emergency_contact || '');
-    
+
     const response = await api.post('/register', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    
+
     console.log('Registration response:', response.data);
-    
+
     if (response.data.success) {
       return {
         success: true,
@@ -168,12 +172,12 @@ export const registerMember = async (memberData, imageBase64) => {
         message: response.data.message || 'Registration failed.'
       };
     }
-    
+
   } catch (error) {
     console.error('Registration error:', error);
-    return { 
-      success: false, 
-      message: 'Registration failed. Check backend connection.' 
+    return {
+      success: false,
+      message: 'Registration failed. Check backend connection.'
     };
   }
 };

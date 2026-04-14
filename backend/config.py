@@ -7,10 +7,10 @@ load_dotenv()
 
 class Config:
     # Database connection
-    DATABASE_URL = os.getenv("DATABASE_URL", "mysql://root:9850337042@localhost:3306/healthcare")
+    DATABASE_URL = os.getenv("DATABASE_URL")
     
     # Gemini API Key
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyBceGQklxwC6L3-siM8AWr7O-2tziOXEao")
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
     
     # Validate API key
     @property
